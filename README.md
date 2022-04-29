@@ -2,7 +2,7 @@
 # iris框架代码示例
 
 ### 安装过程
-```json
+```go
 git clone git@github.com:baozi-github/iris-example.git
 cd iris-example
 go build
