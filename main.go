@@ -12,6 +12,8 @@ import (
 func main() {
 	app := iris.New()
 
+	// 初始化验证器
+
 	// 初始化 .env 的配置，将 .env 中的配置加载到 Go 的 env 环境中
 	if err := godotenv.Load(".env"); err != nil {
 		log.Fatalln(err)
