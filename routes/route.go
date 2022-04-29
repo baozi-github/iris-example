@@ -1,9 +1,11 @@
 package routes
 
-import "github.com/kataras/iris/v12"
+import (
+	"github.com/first/app/controller"
+	"github.com/kataras/iris/v12"
+	"github.com/kataras/iris/v12/mvc"
+)
 
 func RouteInit(app iris.Application) {
-	app.Handle("GET", "/ping", func(ctx iris.Context) {
-		ctx.JSON(iris.Map{"message": "pong"})
-	})
+	mvc.New(app).Handle(new(controller.ExampleController))
 }

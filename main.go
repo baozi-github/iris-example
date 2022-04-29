@@ -10,8 +10,7 @@ import (
 )
 
 func main() {
-	app := iris.Default()
-	app.Use(myMiddleware)
+	app := iris.New()
 
 	// 初始化 .env 的配置，将 .env 中的配置加载到 Go 的 env 环境中
 	if err := godotenv.Load(".env"); err != nil {
@@ -24,9 +23,4 @@ func main() {
 	routes.RouteInit(*app)
 
 	app.Run(iris.Addr(port))
-}
-
-func myMiddleware(ctx iris.Context) {
-	ctx.Application().Logger().Infof("Runs before %s", ctx.Path())
-	ctx.Next()
 }
