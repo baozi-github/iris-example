@@ -28,17 +28,18 @@ func (c *LoginController) GetLogin(ctx iris.Context) common.ReturnData {
 	var loginData LoginData
 	err := ctx.ReadJSON(&loginData)
 	err = validator.New().Struct(loginData)
-	ctx.JSON(loginData)
 	if err != nil {
-		errMsg := ""
 		for _, err := range err.(validator.ValidationErrors) {
+			// 获取map中的key 如果key不存在 统一定义为参数错误
 			errMsgKey := err.Field() + "_" + err.Tag()
-			errMsg = LoginDataErrorMessage[errMsgKey]
-			break
+			errMsg, ok := LoginDataErrorMessage[errMsgKey]
+			if !ok {
+				errMsg = "参数错误"
+			}
+			// 只返回第一条错误
+			return common.ReturnFail(200, errMsg)
 		}
-		ctx.JSON(errMsg)
-
-		return common.ReturnFail(200, errMsg)
+		return common.ReturnFail(200, "参数错误")
 	}
 	return common.ReturnSuccess(200, "请求成功", "")
 }
