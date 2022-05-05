@@ -13,3 +13,11 @@ func ReturnSuccess(code int, message string, data interface{}) ReturnData {
 		Data:    data,
 	}
 }
+
+func ReturnFail(code int, message string) ReturnData {
+	return ReturnData{
+		Code:    code,
+		Message: message,
+		Data:    "",
+	}
+}
